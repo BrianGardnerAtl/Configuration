@@ -1,6 +1,7 @@
 " General settings for the vim config
 
 " Completion settings
+"""""""""""""""""""""
 set wildmenu
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.class
@@ -8,6 +9,7 @@ set wildignore+=*.o,*.obj,.git,*.class
 set timeoutlen=500 " 1/2 second
 
 " Display settings
+""""""""""""""""""
 colorscheme ir_black
 
 set number
@@ -29,12 +31,14 @@ set winheight=999
 set winwidth=80
 
 " Search settings
+"""""""""""""""""
 set ignorecase    " Ignore case by default
 set smartcase     " Ignore case if all lower, else pay attention to case
 set incsearch     " Incremental search
 set hlsearch
 
 " Editing settings
+""""""""""""""""""
 set autoindent    " automatically indent lines
 set smartindent   " try to indent intelligently
 " Backspace over all the things
@@ -60,6 +64,9 @@ set nojoinspaces
 set noballooneval
 
 " Miscellaneous settings
-
+""""""""""""""""""""""""
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+set mouse-=a    " disable the use of the mouse
+set mousehide
