@@ -11,6 +11,7 @@ set timeoutlen=500 " 1/2 second
 " Display settings
 """"""""""""""""""
 colorscheme ir_black
+set t_Co=256
 
 set number
 set ruler
@@ -23,7 +24,7 @@ set laststatus=2
 
 set hidden
 set history=100
-set noeb vb t_vb  " Get rid of error bells
+set noeb vb  " Get rid of error bells
 
 set winheight=5
 set winminheight=5  " minimum height of a window
