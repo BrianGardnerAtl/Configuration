@@ -16,9 +16,13 @@ Bundle "bgardner7/vim-irblack"
 Bundle "nathanaelkane/vim-indent-guides"
 Bundle "Lokaltog/vim-powerline"
 Bundle "altercation/vim-colors-solarized"
+Bundle "molokai"
 
 " Miscellaneous
 Bundle "jeffkreeftmeijer/vim-numbertoggle"
 Bundle "tpope/vim-fugitive"
+Bundle "tpope/vim-rails"
+
+Bundle "The-NERD-Commenter"
 
 filetype plugin indent on  " required by vundle

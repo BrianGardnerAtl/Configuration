@@ -62,8 +62,6 @@ set linebreak
 set textwidth=80
 set nojoinspaces
 
-set noballooneval
-
 " Miscellaneous settings
 """"""""""""""""""""""""
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
