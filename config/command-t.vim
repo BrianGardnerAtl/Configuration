@@ -6,3 +6,4 @@ let g:CommandTAlwaysShowDotFiles = 1
 let g:CommandTScanDotDirectories = 1
 
 map <Leader>t :CommandT<CR>
+map <Leader>T :CommandTFlush<CR>
