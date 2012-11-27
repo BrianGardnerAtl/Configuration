@@ -26,4 +26,6 @@ Bundle "tpope/vim-rails"
 
 Bundle "The-NERD-Commenter"
 
+Bundle "VimClojure"
+
 filetype plugin indent on  " required by vundle
