@@ -10,7 +10,8 @@ set timeoutlen=500 " 1/2 second
 
 " Display settings
 """"""""""""""""""
-colorscheme ir_black
+colorscheme base16-default
+set background=dark
 set t_Co=256
 
 set number

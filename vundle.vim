@@ -17,6 +17,7 @@ Bundle "nathanaelkane/vim-indent-guides"
 Bundle "Lokaltog/vim-powerline"
 Bundle "altercation/vim-colors-solarized"
 Bundle "molokai"
+Bundle "chriskempson/base16-vim"
 
 " Miscellaneous
 Bundle "jeffkreeftmeijer/vim-numbertoggle"
