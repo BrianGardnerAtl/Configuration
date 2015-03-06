@@ -41,8 +41,8 @@ set hlsearch
 
 " Editing settings
 """"""""""""""""""
-set autoindent    " automatically indent lines
-set smartindent   " try to indent intelligently
+set autoindent
+set smartindent
 " Backspace over all the things
 set backspace=indent,eol,start
 " custom characters for tabs and trailing whitespace

@@ -8,7 +8,7 @@ Bundle 'gmarik/vundle'
 
 " File Navigation
 Bundle "scrooloose/nerdtree.git"
-Bundle "git://git.wincent.com/command-t.git"
+Bundle "wincent/command-t"
 Bundle "mileszs/ack.vim"
 
 " Window looks
@@ -23,8 +23,10 @@ Bundle "chriskempson/base16-vim"
 Bundle "jeffkreeftmeijer/vim-numbertoggle"
 Bundle "tpope/vim-fugitive"
 Bundle "tpope/vim-rails"
+Bundle "airblade/vim-gitgutter"
 
 Bundle "The-NERD-Commenter"
+Bundle "tpope/vim-endwise"
 
 Bundle "VimClojure"
 
