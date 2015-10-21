@@ -4,30 +4,30 @@ filetype off  " required by vundle
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " File Navigation
-Bundle "scrooloose/nerdtree.git"
-Bundle "wincent/command-t"
-Bundle "mileszs/ack.vim"
+Plugin "scrooloose/nerdtree.git"
+Plugin "wincent/command-t"
+Plugin "mileszs/ack.vim"
 
 " Window looks
-Bundle "bgardner7/vim-irblack"
-Bundle "nathanaelkane/vim-indent-guides"
-Bundle "Lokaltog/vim-powerline"
-Bundle "altercation/vim-colors-solarized"
-Bundle "molokai"
-Bundle "chriskempson/base16-vim"
+Plugin "bgardner7/vim-irblack"
+Plugin "nathanaelkane/vim-indent-guides"
+Plugin "Lokaltog/vim-powerline"
+Plugin "altercation/vim-colors-solarized"
+Plugin "molokai"
+Plugin "chriskempson/base16-vim"
 
 " Miscellaneous
-Bundle "jeffkreeftmeijer/vim-numbertoggle"
-Bundle "tpope/vim-fugitive"
-Bundle "tpope/vim-rails"
-Bundle "airblade/vim-gitgutter"
+Plugin "jeffkreeftmeijer/vim-numbertoggle"
+Plugin "tpope/vim-fugitive"
+Plugin "tpope/vim-rails"
+Plugin "airblade/vim-gitgutter"
 
-Bundle "The-NERD-Commenter"
-Bundle "tpope/vim-endwise"
+Plugin "The-NERD-Commenter"
+Plugin "tpope/vim-endwise"
 
-Bundle "VimClojure"
+Plugin "VimClojure"
 
 filetype plugin indent on  " required by vundle
