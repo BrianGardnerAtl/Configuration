@@ -14,7 +14,7 @@ find the ~/.vimrc file.
 
 After that you need to install all of the bundled plugins so open up vim and type
 
-    :BundleInstall
+    :PluginInstall
 
 This command is used by [Vundle](https://github.com/gmarik/vundle) which is a
 great package manager for vim and makes adding extra functionality very simple.
