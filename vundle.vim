@@ -8,6 +8,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " File Navigation
 Plugin 'scrooloose/nerdtree.git'
+Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'wincent/command-t'
 Plugin 'mileszs/ack.vim'
 
