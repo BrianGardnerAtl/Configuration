@@ -31,6 +31,8 @@ Plugin 'tpope/vim-endwise'
 
 Plugin 'VimClojure'
 
+Plugin 'udalov/kotlin-vim'
+
 call vundle#end()
 
 filetype plugin indent on  " required by vundle

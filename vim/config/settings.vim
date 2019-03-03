@@ -14,6 +14,7 @@ colorscheme base16-default
 set background=dark
 set t_Co=256
 
+" Show line numbers
 set number
 set ruler
 set showcmd
