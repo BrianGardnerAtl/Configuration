@@ -1,7 +1,7 @@
 set nocompatible
 filetype off  " required by vundle
 
-set rtp+=~/.vim/bundle/vundle
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -13,12 +13,14 @@ Plugin 'wincent/command-t'
 Plugin 'mileszs/ack.vim'
 
 " Window looks
+Plugin 'kaicataldo/material.vim'
 Plugin 'bgardner7/vim-irblack'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'molokai'
 Plugin 'chriskempson/base16-vim'
+Plugin 'dracula/vim'
 
 " Miscellaneous
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'

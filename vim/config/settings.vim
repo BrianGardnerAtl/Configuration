@@ -10,7 +10,8 @@ set timeoutlen=500 " 1/2 second
 
 " Display settings
 """"""""""""""""""
-colorscheme base16-default
+let g:material_theme_style='ocean'
+colorscheme material
 set background=dark
 set t_Co=256
 
