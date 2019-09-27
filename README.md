@@ -8,8 +8,12 @@ All of the configuration files are held in the vim/ folder so the commands here
 reflect how I prefer to set up my vim. First clone the repository into the
 home directory. After that a symbolic link is used so vim can find the ~/.vimrc file.
 
-    $ git clone git@github.com:bgardner7/Configuration.git ~/
-    $ ln -s ~/Configuration/vim/vimrc ~/.vimrc
+    $ git clone git@github.com:BrianGardnerAtl/Configuration.git ~/Dev
+	
+Next, install the vim package manager Vundle to the correct place
+
+	$git clone https://github.com/VundleVim/Vundle.vim.git ~/Dev/Configuration/vim/bundle/Vundle.vim
+	
 
 After that you need to install all of the bundled plugins so open up vim and type
 
