@@ -11,37 +11,14 @@ ZSH_THEME="robbyrussell"
 
 # Alias to quickly get to my zsh config file (this file)
 alias zshconfig="mvim ~/.zshrc"
-# Alias to get to my keyboard config when I screw it up again
-alias kbconfig="mvim ~/Developer/keyboard_config.md"
 #Since I have many files in my .vim folder I want to cd there first
 alias vimconfig="cd ~/.vim; mvim vimrc"
-# Alias for opening my personal review notes
-alias reviewnotes="cd ~/Personal/personal_review_notes; open 2019-notes.md"
 # Alias for opening the current directory
 alias oc="open ."
 # Alias for git status of the current directory
 alias gs="git status ."
-
-# Random aliases I don't really use anymore, should probablly be deleted
-alias rspec="rspec --format doc --color"
-alias lr="lein repl"
-alias io="nocorrect io"
-alias be="bundle exec"
-alias gc="git commit -v"
-alias logcat="ruby ~/BNR/adb-logcat-color/adb-logcat-color.rb"
-alias adb="/Users/bgardner/Library/Android/sdk/platform-tools/adb"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# Alias for git pull --rebase
+alias gpr="git fetch && git rebase origin/main"
 
 # Disable the update prompt that shows up every time i use a shell
 DISABLE_UPDATE_PROMP="true"
@@ -52,46 +29,36 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew cake gem git github node npm nyan osx rails rake vundle)
+plugins=(brew cake git github vundle)
 
 # Source files
 source $ZSH/oh-my-zsh.sh
 
-# chruby
-source /usr/local/share/chruby/chruby.sh
-chruby ruby-2.3.0
-
-# My customizations
-# allow me to run simple db
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:$PATH
-
-export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
-
 export PATH="/usr/local/bin:$PATH"
 
-### Added by the Heroku Toolbelt
-export PATH="$PATH:/usr/local/heroku/bin"
-
 # Add Android paths
-export ANDROID_HOME="/Users/bgardner/Library/Android/sdk/"
+export ANDROID_HOME="/Users/brian/Library/Android/sdk"
 export ANDROID_TOOLS="$ANDROID_HOME/tools"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
-export ANDROID_ADB="$ANDROID_HOME/adb"
+export ANDROID_ADB="$ANDROID_PLATFORM_TOOLS/adb"
 export PATH="$PATH:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_ADB"
 
 # Add Java Home path
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-14.jdk/Contents/Home"
 export PATH="$PATH:$JAVA_HOME"
 
-# Add postgres app to path
-export PATH="$PATH:/Applications/Postgres.app/Contents.Versions/9.5/bin"
+# Add ruby to path
+export PATH="/usr/local/opt/ruby/bin":$PATH
 
-# Add flutter to path
-export PATH="$PATH:/Users/bgardner/Work/flutter/flutter/bin"
+# Add npm global directory to the path
+export PATH="/Users/brian/.npm-global/bin:$PATH"
 
-# Temp decompile add to path
-export PATH="$PATH:/Users/bgardner/Desktop/decompile"
+# Add NRF SDK variable path for building ble keyboard firmware
+export NRFSDK15_ROOT="/Users/brian/Dev/nRF5_SDK"
 
 if command -v pyenv 1>/dev/null 2>&1; then
- eval "$(pyenv init -)"
+  eval "$(pyenv init -)"
 fi
+
+export ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
+export GNUARMEMB_TOOLCHAIN_PATH="/Users/brian/Dev/Keyboard/gcc_arm_embedded"
