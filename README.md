@@ -1,47 +1,152 @@
 # Computer Configuration
 
-This folder includes the various configurations I have for my computer, such as my keyboard configurations, as well as my vim and zsh files.
+This repo contains my development environment configuration. On a new machine, a single bootstrap script handles the bulk of the setup.
 
-## Vim Setup
+## Quick Start (New Machine)
 
-All of the configuration files are held in the vim/ folder so the commands here
-reflect how I prefer to set up my vim. First clone the repository into the
-home directory. After that a symbolic link is used so vim can find the ~/.vimrc file.
+From macOS Terminal.app, before anything else is installed:
 
-    $ git clone git@github.com:BrianGardnerAtl/Configuration.git ~/Dev
-	
-Next, install the vim package manager Vundle to the correct place
+```bash
+curl -o bootstrap.sh https://raw.githubusercontent.com/BrianGardnerAtl/Configuration/master/bootstrap.sh
+bash bootstrap.sh
+```
 
-	$git clone https://github.com/VundleVim/Vundle.vim.git ~/Dev/Configuration/vim/bundle/Vundle.vim
-	
+The script will walk you through everything and pause when it needs input.
 
-After that you need to install all of the bundled plugins so open up vim and type
+### What the script handles
 
-    :PluginInstall
+1. Installs Homebrew
+2. Installs git
+3. Generates an SSH key and guides you through adding it to GitHub (auth + signing)
+4. Configures git with your name, email, and SSH commit signing
+5. Clones this repo to `~/Development/Configuration`
+6. Installs all apps and tools via `Brewfile` (see below)
+7. Installs oh-my-zsh
+8. Sets up symlinks for zsh, vim, and Claude Code skills
+9. Installs vim plugins via Vundle
 
-This command is used by [Vundle](https://github.com/gmarik/vundle) which is a
-great package manager for vim and makes adding extra functionality very simple.
+### What you still do manually after the script
 
-### File Structure
+- **iTerm2:** Import the color scheme — Preferences > Profiles > Colors > Color Presets > Import > `material-ocean.itermcolors`
+- **Alfred:** Enter license and configure preferences
+- **JetBrains Toolbox:** Open and install desired IDEs
+- **Android Studio:** Open and complete the SDK setup wizard
+- **Divvy:** Open and configure window layouts
+- **Claude Code:** Sign in by running `claude`
 
-The file structure for my vimrc is pretty simple. I tried to keep my vimrc file
-pretty basic and split up everything else into other files. The vundle.vim file
-is where all of the bundle files are bundled so they are available for vim to
-use. The gvimrc file is used to hold the settings for the vim gui. I use macvim
-so these settings reflect my personal preference for things such as the size of
-the window, the transparency, and the font for the powerline. The bundle
-directory is where all of the vundle packages are kept. The config directory is
-where various custom vim configurations are kept, often having a separate file
-for each package that needs a configuration.
+---
 
-### Important Notes
+## Installed Apps & Tools (Brewfile)
 
+| Tool | Type |
+|---|---|
+| git | CLI |
+| node | CLI |
+| openjdk@21 | CLI |
+| Google Chrome | App |
+| 1Password | App |
+| Alfred | App |
+| iTerm2 | App |
+| Ollama | App |
+| JetBrains Toolbox | App |
+| Android Studio | App |
+| Claude Code | App |
+| Divvy | App |
 
-The leader key is ','
+To install everything from the Brewfile independently:
 
+```bash
+brew bundle --file=~/Development/Configuration/Brewfile
+```
+
+---
 
 ## ZSH Setup
 
-ZSH setup also uses a symlink to setup the .zshrc file.
+`zsh_config` is symlinked to `~/.zshrc` by the bootstrap script.
 
-    $ ln -s ~/Configuration/zsh_config ~/.zshrc
+To set it up manually:
+
+```bash
+ln -s ~/Development/Configuration/zsh_config ~/.zshrc
+```
+
+---
+
+## Vim Setup
+
+The `vim/` directory is symlinked to `~/.vim` and `vim/vimrc` to `~/.vimrc`.
+
+To set it up manually:
+
+```bash
+ln -s ~/Development/Configuration/vim ~/.vim
+ln -s ~/Development/Configuration/vim/vimrc ~/.vimrc
+```
+
+Plugins are managed by [Vundle](https://github.com/VundleVim/Vundle.vim). After the symlinks are in place:
+
+```bash
+# Install Vundle if not already present
+git clone https://github.com/VundleVim/Vundle.vim.git ~/Development/Configuration/vim/bundle/Vundle.vim
+
+# Install all plugins
+vim +PluginInstall +qall
+```
+
+**Leader key:** `,`
+
+### Vim File Structure
+
+| Path | Purpose |
+|---|---|
+| `vim/vimrc` | Main config, sources everything else |
+| `vim/vundle.vim` | Plugin declarations |
+| `vim/gvimrc` | GUI (MacVim) settings |
+| `vim/config/` | Per-plugin config files |
+| `vim/bundle/` | Installed plugins (git-ignored) |
+
+---
+
+## Claude Code
+
+Three things are symlinked globally so they travel between machines:
+
+| Symlink | Source | Purpose |
+|---|---|---|
+| `~/.claude/CLAUDE.md` | `claude/CLAUDE.md` | Global AI hints (RPI process, TDD) |
+| `~/.claude/commands/` | `claude/commands/` | Simple slash commands (`.md` files) |
+| `~/.claude/skills/` | `claude/skills/` | Full skills (directories with `SKILL.md`) |
+
+To set it up manually:
+
+```bash
+mkdir -p ~/.claude
+ln -s ~/Development/Configuration/claude/CLAUDE.md ~/.claude/CLAUDE.md
+ln -s ~/Development/Configuration/claude/commands ~/.claude/commands
+ln -s ~/Development/Configuration/claude/skills ~/.claude/skills
+```
+
+### Adding a new skill
+
+Create a directory under `claude/skills/` with a `SKILL.md` inside:
+
+```
+claude/skills/my-skill/SKILL.md
+```
+
+Invoke it with `/my-skill [arguments]`. Use `$ARGUMENTS` in the prompt to capture what the user passes.
+
+### Available Skills
+
+| Skill | Description |
+|---|---|
+| `/emulator` | Manage Android Virtual Devices — list, create, delete, start, stop |
+
+---
+
+## iTerm2 Color Scheme
+
+The `material-ocean.itermcolors` file contains the Material Ocean color theme for iTerm2. Import it via:
+
+Preferences > Profiles > Colors > Color Presets > Import
