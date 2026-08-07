@@ -10,9 +10,9 @@ ZSH_THEME="robbyrussell"
 # Command aliases
 
 # Alias to quickly get to my zsh config file (this file)
-alias zshconfig="mvim ~/.zshrc"
+alias zshconfig="vim ~/.zshrc"
 #Since I have many files in my .vim folder I want to cd there first
-alias vimconfig="cd ~/.vim; mvim vimrc"
+alias vimconfig="cd ~/.vim; vim vimrc"
 # Alias for opening the current directory
 alias oc="open ."
 # Alias for reloading the shell to get new zshrc changes
@@ -21,6 +21,22 @@ alias reload="source ~/.zshrc"
 alias gs="git status ."
 # Alias for git pull --rebase
 alias gpr="git fetch && git rebase origin/main"
+# Alias for rebase on develop branch
+alias gprd="git fetch && git rebase origin/develop"
+# Alias for ./gradlew
+alias gw="./gradlew"
+# Alias commit with message
+alias gcm="git commit -m"
+alias ga="git add"
+alias gap="git add -p ."
+alias gl="git log"
+alias gb="git branch"
+alias gcb="git checkout -b"
+alias gco="git checkout"
+alias gpf="git push --force-with-lease"
+alias gpo="git push origin"
+alias gc="git commit"
+alias gca="git commit --amend"
 
 # Disable the update prompt that shows up every time i use a shell
 DISABLE_UPDATE_PROMP="true"
@@ -31,10 +47,47 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew cake git github vundle)
+plugins=(github)
 
 # Source files
 source $ZSH/oh-my-zsh.sh
 
+# IMPORTANT: Adjust the next line to match the azul version you 
+# downloaded using Android Studio
+AZUL_VERSION="23.0.2"
+# If the Android SDK is installed,
+if [ -d ~/Library/Android/sdk ]; then
+    # Export the ANDROID_SDK_ROOT
+    export ANDROID_SDK_ROOT=~/Library/Android/sdk
+    # And add the SDK Platform Tools (adb, et al.) to your PATH.
+    if [ -d $ANDROID_SDK_ROOT/platform-tools ]; then
+        export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
+    fi
+    # And add the CLI Tools (avdmanager, etc.) to your PATH.
+    if [ -d $ANDROID_SDK_ROOT/cmdline-tools/latest/bin ]; then
+        export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+    fi
+    # Add emulator to PATH
+    if [ -d $ANDROID_SDK_ROOT/emulator ]; then
+        export PATH="$PATH:$ANDROID_SDK_ROOT/emulator"
+    fi
+fi
+if [ -d ~/Library/Java/JavaVirtualMachines/azul-$AZUL_VERSION/Contents/Home ]; then
+    export JAVA_HOME=~/Library/Java/JavaVirtualMachines/azul-$AZUL_VERSION/Contents/Home
+fi
+
 export PATH="/usr/local/bin:$PATH"
 
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export PATH="$PATH:$(go env GOPATH)/bin"
+
+export PATH="/opt/homebrew/bin:$PATH"
+
+export BROWSERSTACK_USERNAME="$(security find-generic-password -a "$USER" -s browserstack-username -w)"
+export BROWSERSTACK_ACCESS_KEY="$(security find-generic-password -a "$USER" -s browserstack-access-key -w)"
+
+# Added by Android CLI installer
+export PATH="$PATH:/Users/brian.gardner/.local/bin"
