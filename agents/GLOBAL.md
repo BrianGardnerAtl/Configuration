@@ -23,6 +23,11 @@
 - Validate at system boundaries; do not add handling for impossible states.
 - Prefer comments that explain constraints or intent over comments that restate code.
 
+## Tooling
+
+- Prefer command-line tools and APIs when they provide a practical path to the requested outcome.
+- Reserve browser automation for workflows without a practical CLI or API, such as BrowserStack, or when visual UI interaction is itself part of the task.
+
 ## Testing and Verification
 
 Tests should protect meaningful behavior and earn their maintenance cost.
