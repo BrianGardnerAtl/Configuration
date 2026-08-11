@@ -22,7 +22,7 @@ The script will walk you through everything and pause when it needs input.
 5. Clones this repo to `~/Development/Configuration`
 6. Installs all apps and tools via `Brewfile` (see below)
 7. Installs oh-my-zsh
-8. Sets up symlinks for zsh, vim, and Claude Code skills
+8. Sets up symlinks for zsh, vim, global agent guidance, and Claude Code skills
 9. Installs vim plugins via Vundle
 
 ### What you still do manually after the script
@@ -108,21 +108,35 @@ vim +PluginInstall +qall
 
 ---
 
-## Claude Code
+## Agent Guidance
 
-Three things are symlinked globally so they travel between machines:
+Shared global guidance lives in `agents/GLOBAL.md`. Agent-specific source paths point to that canonical file, and the bootstrap script links them into each agent's home directory.
 
 | Symlink | Source | Purpose |
 |---|---|---|
-| `~/.claude/CLAUDE.md` | `claude/CLAUDE.md` | Global AI hints (RPI process, TDD) |
+| `~/.codex/AGENTS.md` | `codex/AGENTS.md` | Global Codex guidance |
+| `~/.claude/CLAUDE.md` | `claude/CLAUDE.md` | Global Claude Code guidance |
+
+To set it up manually:
+
+```bash
+mkdir -p ~/.codex ~/.claude
+ln -s ~/Development/Configuration/codex/AGENTS.md ~/.codex/AGENTS.md
+ln -s ~/Development/Configuration/claude/CLAUDE.md ~/.claude/CLAUDE.md
+```
+
+## Claude Code
+
+Commands and skills are also symlinked globally:
+
+| Symlink | Source | Purpose |
+|---|---|---|
 | `~/.claude/commands/` | `claude/commands/` | Simple slash commands (`.md` files) |
 | `~/.claude/skills/` | `claude/skills/` | Full skills (directories with `SKILL.md`) |
 
 To set it up manually:
 
 ```bash
-mkdir -p ~/.claude
-ln -s ~/Development/Configuration/claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -s ~/Development/Configuration/claude/commands ~/.claude/commands
 ln -s ~/Development/Configuration/claude/skills ~/.claude/skills
 ```

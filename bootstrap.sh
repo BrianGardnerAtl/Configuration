@@ -163,9 +163,12 @@ setup_symlink "$CONFIG_DIR/zsh_config"        "$HOME/.zshrc"
 setup_symlink "$CONFIG_DIR/vim"              "$HOME/.vim"
 setup_symlink "$CONFIG_DIR/vim/vimrc"        "$HOME/.vimrc"
 
-# Claude Code global config
-mkdir -p "$HOME/.claude"
+# Global agent guidance
+mkdir -p "$HOME/.codex" "$HOME/.claude"
+setup_symlink "$CONFIG_DIR/codex/AGENTS.md"   "$HOME/.codex/AGENTS.md"
 setup_symlink "$CONFIG_DIR/claude/CLAUDE.md"  "$HOME/.claude/CLAUDE.md"
+
+# Claude Code global config
 setup_symlink "$CONFIG_DIR/claude/commands"   "$HOME/.claude/commands"
 setup_symlink "$CONFIG_DIR/claude/skills"     "$HOME/.claude/skills"
 
