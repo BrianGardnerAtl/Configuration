@@ -22,7 +22,7 @@ The script will walk you through everything and pause when it needs input.
 5. Clones this repo to `~/Development/Configuration`
 6. Installs all apps and tools via `Brewfile` (see below)
 7. Installs oh-my-zsh
-8. Sets up symlinks for zsh, vim, global agent guidance, and Claude Code skills
+8. Sets up symlinks for zsh, vim, agent guidance, Codex roles, and Claude Code skills
 9. Installs vim plugins via Vundle
 
 ### What you still do manually after the script
@@ -110,20 +110,36 @@ vim +PluginInstall +qall
 
 ## Agent Guidance
 
-Shared global guidance lives in `agents/GLOBAL.md`. Agent-specific source paths point to that canonical file, and the bootstrap script links them into each agent's home directory.
+Shared engineering guidance lives in `agents/GLOBAL.md` and remains the source used by Claude Code. Codex uses the standalone `codex/AGENTS.md`, which includes that engineering intent plus the Codex-specific Research-Plan-Implement (RPI) orchestration workflow.
 
 | Symlink | Source | Purpose |
 |---|---|---|
-| `~/.codex/AGENTS.md` | `codex/AGENTS.md` | Global Codex guidance |
-| `~/.claude/CLAUDE.md` | `claude/CLAUDE.md` | Global Claude Code guidance |
+| `~/.codex/AGENTS.md` | `codex/AGENTS.md` | Codex engineering and RPI guidance |
+| `~/.codex/agents/rpi-researcher.toml` | `codex/agents/rpi-researcher.toml` | Read-only architecture researcher |
+| `~/.codex/agents/rpi-worker.toml` | `codex/agents/rpi-worker.toml` | Focused implementation worker |
+| `~/.codex/agents/rpi-reviewer.toml` | `codex/agents/rpi-reviewer.toml` | Read-only completion reviewer |
+| `~/.claude/CLAUDE.md` | `claude/CLAUDE.md` | Claude Code shared engineering guidance |
+
+The RPI lifecycle is:
+
+1. **Research:** The orchestrator delegates read-only investigation, reconciles the request with the current architecture, and raises material discrepancies.
+2. **Plan:** The orchestrator presents a detailed, versioned plan. Implementation starts only after the user unambiguously approves that plan version.
+3. **Implement:** One worker implements one approved item at a time, then a separate reviewer verifies the item. Unexpected scope is left untouched, researched separately, and raised to the user before any plan revision is implemented.
+
+Codex role files are linked individually so bootstrap preserves unrelated personal roles in `~/.codex/agents`. It does not replace the private `~/.codex/config.toml`.
 
 To set it up manually:
 
 ```bash
-mkdir -p ~/.codex ~/.claude
+mkdir -p ~/.codex/agents ~/.claude
 ln -s ~/Development/Configuration/codex/AGENTS.md ~/.codex/AGENTS.md
+ln -s ~/Development/Configuration/codex/agents/rpi-researcher.toml ~/.codex/agents/rpi-researcher.toml
+ln -s ~/Development/Configuration/codex/agents/rpi-worker.toml ~/.codex/agents/rpi-worker.toml
+ln -s ~/Development/Configuration/codex/agents/rpi-reviewer.toml ~/.codex/agents/rpi-reviewer.toml
 ln -s ~/Development/Configuration/claude/CLAUDE.md ~/.claude/CLAUDE.md
 ```
+
+Start a new Codex session after changing the guidance or role files.
 
 ## Claude Code
 

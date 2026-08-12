@@ -163,10 +163,14 @@ setup_symlink "$CONFIG_DIR/zsh_config"        "$HOME/.zshrc"
 setup_symlink "$CONFIG_DIR/vim"              "$HOME/.vim"
 setup_symlink "$CONFIG_DIR/vim/vimrc"        "$HOME/.vimrc"
 
-# Global agent guidance
-mkdir -p "$HOME/.codex" "$HOME/.claude"
+# Global agent guidance and Codex roles
+mkdir -p "$HOME/.codex/agents" "$HOME/.claude"
 setup_symlink "$CONFIG_DIR/codex/AGENTS.md"   "$HOME/.codex/AGENTS.md"
 setup_symlink "$CONFIG_DIR/claude/CLAUDE.md"  "$HOME/.claude/CLAUDE.md"
+for role in "$CONFIG_DIR"/codex/agents/*.toml; do
+    [[ -e "$role" ]] || continue
+    setup_symlink "$role" "$HOME/.codex/agents/$(basename "$role")"
+done
 
 # Claude Code global config
 setup_symlink "$CONFIG_DIR/claude/commands"   "$HOME/.claude/commands"
