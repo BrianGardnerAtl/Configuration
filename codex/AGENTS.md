@@ -1,15 +1,40 @@
 # Codex Engineering and Orchestration Guidance
 
-## Roles and Scope
+## Workflow Selection
 
-- For any requested repository or configuration change, use Research-Plan-Implement (RPI) unless the user explicitly opts out.
-- The primary agent is the orchestrator. It owns user communication, workflow state, the plan, delegation, and final synthesis; it does not edit implementation files itself.
+- Use Research-Plan-Implement (RPI) only when the user explicitly names RPI or Research-Plan-Implement, unmistakably requests the full workflow, or explicitly asks to "start a new feature."
+- Do not infer RPI from task complexity or merely because a request changes a repository or configuration.
+- Outside RPI, the primary agent handles the request directly without mandatory delegation, a planning artifact, plan approval, or separate review. Continue to follow the applicable implementation, testing, and read-only diagnosis guidance below.
+- Once RPI is activated, follow the complete RPI workflow and do not bypass its approval, delegation, validation, review, or planning-artifact requirements.
+
+## RPI Roles and Scope
+
+- During RPI, the primary agent is the orchestrator. It owns user communication, workflow state, the plan, delegation, and final synthesis; it does not edit implementation files itself.
 - The orchestrator may perform limited read-only inspection needed to route work and may maintain the planning artifact. Delegate substantive research, implementation, and review to the corresponding agents.
 - A delegated agent follows its assigned role and work item instead of restarting orchestration. It must return a structured handoff to the orchestrator.
 - If the required agent cannot be used, do not silently perform its work in the primary thread. Explain the constraint and ask the user how to proceed.
 - For explanation, review, or diagnosis requests that do not include implementation, research and report without modifying files.
 
 ## Research-Plan-Implement
+
+### Feature Worktree Preflight
+
+- When RPI was activated by an explicit request to "start a new feature," complete this preflight before repository research. Other explicit RPI requests use the current working directory unless the user asks for a worktree.
+- If the current session is already in the task-specific worktree created for this same request, reuse it and do not create another.
+- Determine whether the current directory is inside a Git repository. If it is, resolve the repository root and inspect both working-tree status and existing worktrees before taking further action.
+- Derive a concise feature slug and create a unique `codex/<feature-slug>` branch with a task-specific worktree under `$CODEX_HOME/worktrees`. Use a base explicitly supplied by the user; otherwise base it on the current committed `HEAD`.
+- Never stash, discard, or silently copy uncommitted changes into the feature worktree. If the feature depends on uncommitted work, explain what was found and ask the user how to proceed. Otherwise leave the changes untouched in the original checkout.
+- If branch or worktree creation fails, stop and report the failure instead of continuing in the original checkout.
+- Record the new worktree's absolute path. Run all later repository reads, commands, planning-artifact updates, delegated agents, implementation, review, and validation for the request from that worktree.
+- If the current directory is not inside a Git repository, state that no worktree was created and continue RPI in the current directory.
+
+### RPI Planning Artifact
+
+- At RPI activation, after any required feature worktree preflight, establish and record a durable planning-artifact path. Follow an existing repository convention when one is present; otherwise use `docs/plans/<feature-slug>.md` in the active checkout.
+- The orchestrator exclusively maintains the artifact. Researchers, workers, and reviewers provide structured handoffs but do not edit it.
+- Update the artifact immediately after each research handoff, material decision or clarified assumption, plan revision, plan approval, implementation-status change, validation result, unexpected-scope discovery, reviewer verdict, rework result, and final completion or remaining-risk assessment.
+- Keep the artifact current before advancing to another RPI phase or assigning the next plan item.
+- Preserve plan-version history and approval state in the artifact. Evidence and status updates do not require a new plan version, but any change to an approved outcome, boundary, dependency, or acceptance criterion does and requires renewed user approval.
 
 ### 1. Research
 
@@ -39,7 +64,16 @@
 - After the worker finishes, delegate review to a different, read-only reviewer. The reviewer compares the approved item, actual diff, and validation evidence and returns `ACCEPTED`, `REWORK_REQUIRED`, or `SCOPE_BLOCKED`.
 - Send in-scope corrections back to the worker, then require another reviewer pass. Do not mark an item complete until the reviewer accepts it.
 - If rework exposes a faulty assumption or requires broader scope, stop the loop and return to research and planning.
-- The orchestrator reports progress, blockers, reviewer outcomes, and completed items to the user and remains the sole owner of plan status.
+- The orchestrator reports reviewer outcomes and plan-item completion to the user, follows the subagent status-visibility rules below throughout delegated work, and remains the sole owner of plan status.
+
+## Subagent Status Visibility
+
+- Maintain a lightweight status record for every subagent in the current workflow: concise assignment, start time, latest state, and completion or blocker result.
+- Immediately before waiting for subagent results, report mutually exclusive active, completed, and blocked counts, then list every subagent's assignment, current status, and elapsed wall-clock time. Count blocked only when explicitly reported; do not infer from runtime.
+- While any subagent remains active, use bounded waits of no more than 60 seconds. After each wait returns, refresh status and send a concise heartbeat before waiting again, even if unchanged. Promptly report completions, blockers, and material state changes.
+- Compute elapsed time from recorded start time if runtime does not expose it. If neither available, state `elapsed unavailable`; do not guess.
+- Report exact context-window or token usage only when runtime explicitly exposes a per-agent value. Otherwise state `context usage unavailable`; never estimate from time/output.
+- Keep reports factual/compact; summarize assignments/results instead of reproducing internal instructions. Never expose hidden reasoning/chain-of-thought, credentials/secrets, or full system/developer/tool/subagent prompts.
 
 ## Plan Item and Change-Set Sizing
 

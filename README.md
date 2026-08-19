@@ -110,7 +110,7 @@ vim +PluginInstall +qall
 
 ## Agent Guidance
 
-Shared engineering guidance lives in `agents/GLOBAL.md` and remains the source used by Claude Code. Codex uses the standalone `codex/AGENTS.md`, which includes that engineering intent plus the Codex-specific Research-Plan-Implement (RPI) orchestration workflow.
+Shared engineering guidance lives in `agents/GLOBAL.md` and remains the source used by Claude Code. Codex uses the standalone `codex/AGENTS.md`, which includes that engineering intent plus an opt-in Research-Plan-Implement (RPI) orchestration workflow.
 
 | Symlink | Source | Purpose |
 |---|---|---|
@@ -120,7 +120,9 @@ Shared engineering guidance lives in `agents/GLOBAL.md` and remains the source u
 | `~/.codex/agents/rpi-reviewer.toml` | `codex/agents/rpi-reviewer.toml` | Read-only completion reviewer |
 | `~/.claude/CLAUDE.md` | `claude/CLAUDE.md` | Claude Code shared engineering guidance |
 
-The RPI lifecycle is:
+RPI activates only when the user explicitly requests RPI or the full workflow, including an explicit request to "start a new feature." Ordinary questions and change requests use the direct workflow. A new-feature request creates a dedicated `codex/<feature-slug>` branch and worktree under `$CODEX_HOME/worktrees` when run inside a Git repository, then conducts all RPI work there.
+
+Every RPI run keeps a durable planning artifact current throughout research, decisions, approval, implementation, validation, review, rework, and completion. The lifecycle is:
 
 1. **Research:** The orchestrator delegates read-only investigation, reconciles the request with the current architecture, and raises material discrepancies.
 2. **Plan:** The orchestrator presents a detailed, versioned plan. Implementation starts only after the user unambiguously approves that plan version.
